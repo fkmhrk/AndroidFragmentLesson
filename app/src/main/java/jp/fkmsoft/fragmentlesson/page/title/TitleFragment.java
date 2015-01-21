@@ -3,6 +3,7 @@ package jp.fkmsoft.fragmentlesson.page.title;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,6 +33,10 @@ public class TitleFragment extends Fragment {
     @OnClick(R.id.button_start)
     void startClicked() {
         Toast.makeText(getActivity(), "スタート", Toast.LENGTH_SHORT).show();
+
+        FragmentManager manager = getFragmentManager();
+        // Lesson 3.
+        // ここにFragmentのreplaceを行う処理を書いてみよう
     }
 
 
