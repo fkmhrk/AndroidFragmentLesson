@@ -3,6 +3,8 @@ package jp.fkmsoft.fragmentlesson;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 
+import jp.fkmsoft.fragmentlesson.page.title.TitleFragment;
+
 
 public class MainActivity extends ActionBarActivity {
 
@@ -12,8 +14,7 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    // Lesson 1. 最初に表示されるFragmentをTitleFragmentにしてみよう
-                    .add(R.id.container, null)
+                    .add(R.id.container, new TitleFragment())
                     .commit();
         }
     }
