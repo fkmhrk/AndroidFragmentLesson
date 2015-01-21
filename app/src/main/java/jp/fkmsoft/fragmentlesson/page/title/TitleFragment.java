@@ -32,6 +32,7 @@ public class TitleFragment extends Fragment {
 
     @OnClick(R.id.button_start)
     void startClicked() {
+        // Lesson 2の回答
         Toast.makeText(getActivity(), "スタート", Toast.LENGTH_SHORT).show();
 
         FragmentManager manager = getFragmentManager();
