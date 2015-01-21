@@ -8,16 +8,15 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import jp.fkmsoft.fragmentlesson.R;
 
 /**
- * メイン画面
+ * 設定画面
  */
-public class MainFragment extends Fragment {
+public class SettingsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_main, container, false);
+        View root = inflater.inflate(R.layout.fragment_settings, container, false);
 
         ButterKnife.inject(this, root);
 
@@ -29,17 +28,5 @@ public class MainFragment extends Fragment {
         super.onDestroyView();
 
         ButterKnife.reset(this);
-    }
-
-    @OnClick(R.id.button_my_list)
-    void myListClicked() {
-        // Lesson 4.
-        // R.id.contentsに、MyListFragmentを張り付けよう
-    }
-
-    @OnClick(R.id.button_settings)
-    void settingsClicked() {
-        // Lesson 4.
-        // R.id.contentsに、SettingsFragmentを張り付けよう
     }
 }
