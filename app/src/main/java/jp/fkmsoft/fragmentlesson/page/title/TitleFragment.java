@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import android.widget.Toast;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import jp.fkmsoft.fragmentlesson.R;
+import jp.fkmsoft.fragmentlesson.page.main.MainFragment;
 
 /**
  * タイトル画面
@@ -32,12 +34,12 @@ public class TitleFragment extends Fragment {
 
     @OnClick(R.id.button_start)
     void startClicked() {
-        // Lesson 2の回答
-        Toast.makeText(getActivity(), "スタート", Toast.LENGTH_SHORT).show();
-
+        // Lesson 3 の回答
         FragmentManager manager = getFragmentManager();
-        // Lesson 3.
-        // ここにFragmentのreplaceを行う処理を書いてみよう
+        FragmentTransaction transaction = manager.beginTransaction();
+        transaction.addToBackStack("tag");
+        transaction.replace(R.id.container, new MainFragment());
+        transaction.commit();
     }
 
 
