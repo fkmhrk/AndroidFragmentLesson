@@ -8,8 +8,10 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import butterknife.ButterKnife;
+import butterknife.InjectView;
 import butterknife.OnClick;
 import jp.fkmsoft.fragmentlesson.R;
 
@@ -17,6 +19,22 @@ import jp.fkmsoft.fragmentlesson.R;
  * メイン画面
  */
 public class MainFragment extends Fragment {
+
+    private static final String ARGS_NAME = "name";
+
+    public static MainFragment newInstance(String name) {
+        MainFragment fragment = new MainFragment();
+
+        Bundle args = new Bundle();
+        args.putString(ARGS_NAME, name);
+        fragment.setArguments(args);
+
+        return fragment;
+    }
+
+    @InjectView(R.id.text_name)
+    TextView mNameText;
+
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_main, container, false);
@@ -30,8 +48,10 @@ public class MainFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // Lesson 5
-        // タイトル画面から渡された名前をR.id.text_nameに表示させよう
+        // Lesson 5の回答
+        Bundle args = getArguments();
+        String name = args.getString(ARGS_NAME);
+        mNameText.setText(name + "さんこんにちはこんにちは！");
     }
 
     @Override
