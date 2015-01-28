@@ -3,6 +3,8 @@ package jp.fkmsoft.fragmentlesson.page.main;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +27,14 @@ public class MainFragment extends Fragment {
     }
 
     @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        // Lesson 5
+        // タイトル画面から渡された名前をR.id.text_nameに表示させよう
+    }
+
+    @Override
     public void onDestroyView() {
         super.onDestroyView();
 
@@ -33,13 +43,23 @@ public class MainFragment extends Fragment {
 
     @OnClick(R.id.button_my_list)
     void myListClicked() {
-        // Lesson 4.
-        // R.id.contentsに、MyListFragmentを張り付けよう
+        // Lesson 4の回答
+        FragmentManager manager = getChildFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
+
+        transaction.replace(R.id.contents, new MyListFragment());
+
+        transaction.commit();
     }
 
     @OnClick(R.id.button_settings)
     void settingsClicked() {
-        // Lesson 4.
-        // R.id.contentsに、SettingsFragmentを張り付けよう
+        // Lesson 4の回答
+        FragmentManager manager = getChildFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
+
+        transaction.replace(R.id.contents, new SettingsFragment());
+
+        transaction.commit();
     }
 }

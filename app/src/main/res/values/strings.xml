@@ -8,5 +8,6 @@
     <string name="resume">Resume</string>
     <string name="settings">Settings</string>
     <string name="mylist">My list</string>
+    <string name="username">User name</string>
 
 </resources>
