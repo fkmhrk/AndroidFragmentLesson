@@ -27,6 +27,14 @@ public class MainFragment extends Fragment {
     }
 
     @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        // Lesson 5
+        // タイトル画面から渡された名前をR.id.text_nameに表示させよう
+    }
+
+    @Override
     public void onDestroyView() {
         super.onDestroyView();
 
