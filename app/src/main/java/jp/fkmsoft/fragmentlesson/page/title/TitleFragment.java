@@ -1,5 +1,7 @@
 package jp.fkmsoft.fragmentlesson.page.title;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -21,14 +23,59 @@ import jp.fkmsoft.fragmentlesson.page.main.MainFragment;
  * タイトル画面
  */
 public class TitleFragment extends Fragment {
+    private static final int REQUEST_LOGIN = 1000;
+
+    private static final String STATE_NAME = "name";
+
     @InjectView(R.id.edit_name)
     EditText mNameEdit;
+
+    private String mName = "";
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (savedInstanceState == null) {
+            mName = "";
+        } else {
+            mName = savedInstanceState.getString(STATE_NAME);
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_title, container, false);
         ButterKnife.inject(this, root);
         return root;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+        case REQUEST_LOGIN: {
+            if (resultCode != Activity.RESULT_OK) { return; }
+
+            mName = data.getStringExtra(LoginFragment.EXTRA_NAME);
+            if (isResumed()) {
+                mNameEdit.setText(mName);
+            }
+
+            return;
+        }
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mNameEdit.setText(mName);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString(STATE_NAME, mName);
     }
 
     @Override
@@ -54,7 +101,7 @@ public class TitleFragment extends Fragment {
         FragmentManager manager = getFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
         transaction.addToBackStack("tag");
-        transaction.replace(R.id.container, LoginFragment.newInstance());
+        transaction.replace(R.id.container, LoginFragment.newInstance(this, REQUEST_LOGIN));
         transaction.commit();
     }
 
