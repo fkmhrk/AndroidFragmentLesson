@@ -14,6 +14,7 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
 import jp.fkmsoft.fragmentlesson.R;
+import jp.fkmsoft.fragmentlesson.page.login.LoginFragment;
 import jp.fkmsoft.fragmentlesson.page.main.MainFragment;
 
 /**
@@ -45,6 +46,15 @@ public class TitleFragment extends Fragment {
         FragmentTransaction transaction = manager.beginTransaction();
         transaction.addToBackStack("tag");
         transaction.replace(R.id.container, MainFragment.newInstance(name));
+        transaction.commit();
+    }
+
+    @OnClick(R.id.button_continue)
+    void continueClicked() {
+        FragmentManager manager = getFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
+        transaction.addToBackStack("tag");
+        transaction.replace(R.id.container, LoginFragment.newInstance());
         transaction.commit();
     }
 
