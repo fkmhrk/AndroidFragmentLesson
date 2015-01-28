@@ -6,6 +6,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -36,6 +39,13 @@ public class MainFragment extends Fragment {
     TextView mNameText;
 
     @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        setHasOptionsMenu(true);
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_main, container, false);
 
@@ -52,6 +62,13 @@ public class MainFragment extends Fragment {
         Bundle args = getArguments();
         String name = args.getString(ARGS_NAME);
         mNameText.setText(name + "さんこんにちはこんにちは！");
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        menu.clear();
+        inflater.inflate(R.menu.menu_main, menu);
     }
 
     @Override
@@ -81,5 +98,22 @@ public class MainFragment extends Fragment {
         transaction.replace(R.id.contents, new SettingsFragment());
 
         transaction.commit();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+        case R.id.action_logout:
+            showConfirmLogoutDialog();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    // private
+
+    private void showConfirmLogoutDialog() {
+        // Lesson 7
+        // 「ログアウトしますか？　はい/いいえ」のダイアログを表示し、結果を受け取ってみよう
     }
 }
