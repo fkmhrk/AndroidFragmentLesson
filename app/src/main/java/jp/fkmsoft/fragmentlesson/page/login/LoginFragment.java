@@ -1,5 +1,7 @@
 package jp.fkmsoft.fragmentlesson.page.login;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -15,8 +17,11 @@ import jp.fkmsoft.fragmentlesson.R;
  * ログイン画面
  */
 public class LoginFragment extends Fragment {
-    public static LoginFragment newInstance() {
+    public static final String EXTRA_NAME = "name";
+
+    public static LoginFragment newInstance(Fragment target, int requestCode) {
         LoginFragment fragment = new LoginFragment();
+        fragment.setTargetFragment(target, requestCode);
 
         Bundle args = new Bundle();
         fragment.setArguments(args);
@@ -46,10 +51,21 @@ public class LoginFragment extends Fragment {
     void loginClicked() {
         String username = "dummyUsername";
 
-        // Lesson 6
-        // このユーザー名を呼び出し元(TitleFragment)のFragmentに伝えよう
-        // 呼び出し元は、EditTextにその値をセットしてみよう
+        // Lesson 6の回答
+        Fragment target = getTargetFragment();
+        if (target == null) {
+            close();
+            return;
+        }
 
+        Intent it = new Intent();
+        it.putExtra(EXTRA_NAME, username);
+        target.onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, it);
+
+        close();
+    }
+
+    private void close() {
         getFragmentManager().popBackStack();
     }
 }
