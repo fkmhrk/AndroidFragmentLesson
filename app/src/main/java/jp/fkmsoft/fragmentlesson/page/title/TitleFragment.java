@@ -8,17 +8,22 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
+import android.widget.EditText;
 
 import butterknife.ButterKnife;
+import butterknife.InjectView;
 import butterknife.OnClick;
 import jp.fkmsoft.fragmentlesson.R;
+import jp.fkmsoft.fragmentlesson.page.login.LoginFragment;
 import jp.fkmsoft.fragmentlesson.page.main.MainFragment;
 
 /**
  * タイトル画面
  */
 public class TitleFragment extends Fragment {
+    @InjectView(R.id.edit_name)
+    EditText mNameEdit;
+
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_title, container, false);
@@ -34,11 +39,22 @@ public class TitleFragment extends Fragment {
 
     @OnClick(R.id.button_start)
     void startClicked() {
-        // Lesson 3 の回答
+        // Lesson 3と5 の回答
+        String name = mNameEdit.getText().toString();
+
         FragmentManager manager = getFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
         transaction.addToBackStack("tag");
-        transaction.replace(R.id.container, new MainFragment());
+        transaction.replace(R.id.container, MainFragment.newInstance(name));
+        transaction.commit();
+    }
+
+    @OnClick(R.id.button_continue)
+    void continueClicked() {
+        FragmentManager manager = getFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
+        transaction.addToBackStack("tag");
+        transaction.replace(R.id.container, LoginFragment.newInstance());
         transaction.commit();
     }
 
